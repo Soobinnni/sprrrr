@@ -78,6 +78,17 @@
 		</dependency>-->
 		<!-- 입력값 유효성 검증을 위한 의존 라이브러리 -->
 		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+</dependency>
 	</dependencies>
 
 	<build>

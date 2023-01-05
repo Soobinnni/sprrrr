@@ -1,4 +1,4 @@
-package com.zeus.board;
+package com.zeus.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
