@@ -1,0 +1,121 @@
+* Mybatis
+- XML 서술자나 애너테이션을 사용해 저장 프로시저나 SQL문으로 객체를 연결시킨다.
+- 동적 SQL문 조합
+
+									<스프링 부트에서 사용하기>
+- application.properties에서 DB와 mybatis 관련 설정을 한다.
+- mybatis 관련 설정
+   + mybatis.config-location=classpath:mybatis-config.xml
+   	 : mybatis 설정 파일 위치 (추측 : src/main/resources에서 상대경로)	
+   + mybatis.mapper-locations=classpath:mappers/**/*.xml
+   	 : Mapper 클래스의 메서드가 이 설정 경로를 참조한다.
+   	   Class의 Package 및 클래스의 이름을 연결한 문자열이 XML의 namespace와 동일하고,
+   	   Class의 메서드명과 엘리먼트 id가 동일하면 해당 쿼리를 실행한다.   
+
+- @MapperScan 어노테이션
+   + 스프링 부트 프로젝트 실행시 mapper 객체가 Autowired 가 안되는 오류가 발생하는 것을 방지
+   + 예컨대, ServiceImpl class의 필드에서
+	   	@Autowired
+		private BoardMapper mapper; 
+	처럼, Mapper클래스를 사용하므로, Service를 사용하는 Controller에 선언하거나, Service class에 @MapperScan를 선언한다.
+   + 형식 예 : @MapperScan(basePackages = "com.zeus.mapper")
+   + 모든 컨트롤러나, 서비스 객체에 할 필요 없고, 하나의 객체에 선언해두면 모든 객체에 적용된다.
+   
+- 마이바티스 구현
+	① Mapper 인터페이스 : BoardMapper, MemberMapper 등 entity 별로 만든다.
+		* Service 클래스는, @Autowired로 Mapper인터페이스를 자동주입한(@MapperScan 이용) 후 비지니스 로직을 수행하도록 
+		  Mapper 인터페이스의 메서드를 호출한다.
+	② 매핑 파일 : 확장자=xml, sql문이 작성된다. src/main/java의 Mapper 클래스의 패키지경로와 일치시킨다.
+		* <mapper namespace="com.zeus.mapper.BoardMapper"> : mapper의 namespace속성값엔, Mapper인터페이스 경로가 작성된다.
+		* <insert id="create">처럼, sql태그의 id 속성값은 Mapper인터페이스의 메서드명과 일치시킨다.
+	③ 매퍼 설정 파일 : MyBatis 의 동작에 영향을 주는 설정들이 포함되어 있다.
+	
+---------------------------------------------------------------------------------------------------------
+									매퍼 설정 파일의 여러 설정 태그
+									
+* settings 태그 : MyBatis 가 런타임에서 동작하는 방식을 수정하는 매우 중요한 설정이다.
+  - 하위 태그인 setting태그의 name프로퍼티의 값들을 통해 설정을 한다. 프로퍼티의 값은 true/false.
+  - 예시
+  		<settings>
+			<setting name="mapUnderscoreToCamelCase" value="true" />
+		</settings>
+  - mapUnderscoreToCamelCase은 전통적인 데이터베이스 컬럼명 A_COLUMN 에서 전통적인 Java 프로퍼티명
+	형태인 카멜케이스(camel case)식의 aColumn 으로 자동 맵핑을 사용한다. (즉, DB에서 자바의 식별자의 규칙으로 변환한다. 
+	자바는 첫문자의 글자는 소문자로, 두 번째 글자부터의 구분을 대문자로)
+	=> XML설정파일은 그대로 sql문의 식별자를 따르지만, #{}표현 내에서 바인딩된
+	외부 데이터를 가져다 쓸 때 카멜케이스 식의 표현을 사용할 수 있다는 것이다.
+	
+* typeAliases 태그 : typeAlias 로 맵핑 파일에서 반복적으로 사용된 패키지 이름을 정의한다.
+					타입 별명은 Java 타입의 짧은 이름이다. 이것은 XML 설정에만 해당하며 클래스 이름의 중복 입력을
+					줄이기 위해서다
+   - 하위 태그로 <typeAliases>, <package>가 있다.
+   
+   - <typeAliases>
+    + alias 프로퍼티와 함께 쓰인다.
+    + 아래 예시 설정을 사용하면 domain.blog.Blog 가 있는 곳이면 어디서나 Blog 를 사용할 수 있다.
+    <typeAliases>
+	  <typeAlias alias="Blog" type="domain.blog.Blog"/>
+	</typeAliases>	
+	
+	- <package> : TypeAlias로 맵핑 파일에서 반복적으로 사용될 패키지의 이름을 정의한다.
+    + name 프로퍼티와 함께 쓰인다.	
+		<typeAliases>
+			<package name="com.zeus.domain" />
+		</typeAliases>
+	+ XML파일에서 package태그의 name프로퍼티로 설정해둔 패키지명의 빈을 사용할 때, name의 경로를 생략할 수 있다. 
+	예컨대, 
+	[ mybatis-config.xml ]
+		<typeAliases>
+			<package name="com.zeus.domain" />
+		</typeAliases>
+
+	[ BoardMapper.xml ]
+		<select id="read" resultType="Board"> //resultType에 패키지명이 생략되었다.
+				...
+		</select>
+		
+---------------------------------------------------------------------------------------------------------
+										Mapper XML 파일
+										
+∙ <mapper namespace="">의 값은, 해당 xml을 사용하는 mapper인터페이스 경로다.										
+
+<sql 구문>
+∙ cache - 지정된 네임스페이스에 대한 캐시 구성
+∙ cache-ref - 다른 네임스페이스의 캐시 구성에 대한 참조
+∙ resultMap - 데이터베이스 결과 세트에서 객체를 로드하는 방법을 설명하는 요소이다.
+∙ sql - 다른 구문에서 참조할 수 있는 재사용이 가능한 SQL 블록
+∙ insert - 매핑된 INSERT 구문. insert구문은 자식 구문으로 selectKey구문을 사용할 수 있다.
+∙ update - 매핑된 UPDATE 구문
+∙ delete - 매핑된 DELETE 구문
+∙ select - 매핑된 SELECT 구문
+∙ 각 속성에 대한 자세한 설명 : Spring Boot 웹 개발(13-1장 마이바티스).pdf p153(33)
+
+<CDATA의 사용> <![CDATA[  ...   ]]>
+- MyBatis 사용 시 쿼리문에 비교 연산자와 같이 부등호 처리가 필요할 때가 있다. 
+  하지만 비교 연산자를 사용했을 경우 error를 발생시킨다.
+  SQL구문 내 '<'사용시 태그의 시작으로 여겨 처리하기 때문이다.
+  따라서 CDATA Section으로 SQL문을 감싸주어 해결한다.
+
+<구문의 프로퍼티들>
+- parameterType : 구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭
+				이 속성은 SQL실행에 필요한 데이터를 외부에서 받아야 할 때 사용한다. 일반적으로 
+				VO형태의 클래스를 지정한다. 만일, xml설정에 typeAlias로 alias가 설정돼 있으면
+				더 간결하게 처리할 수 있다. 대부분 parameterType 속성을 생략하는 경우가 있으나
+				테이블의 컬럼명과 매핑에 사용될 자바 객체의 변수명이 다를 때 매핑될 수 없는 경우
+				 사용한다.
+				insert, update, delete 시에 parameterType은 optional.
+- resultType :  이 구문에 의해 리턴되는 기대타입의 패키지 경로를 포함한 전체 클래스 명이나 별칭
+				select구문에서 절대 생략될 수 없는 속성이다.
+- 파라미터의 경우 #{이름} 으로 사용한다. 예로 BoardVO를 파라미터로 받은 경우 BoardVO 객체 내부의 속성값들을 사용할 수 있다.
+- [예시] #{id} : 이것은 MyBatis 에 PreparedStatement 매개변수를 작성하도록 지시한다. JDBC 를 사용하면 매개변수는
+			"?"로 식별한다.
+			
+- <selectKey>구문 : insert의 자식요소로, mybatis에서는 selectKey로 Auto Increment로 생성된
+					키를 쉽게 가져올 수 있다.
+					<insert id = "insertBoard" parameterType="board>	
+						<selectKey keyProperty="userNo" resultType="int"
+							order="BEFORE">
+							select mybatismember_seq.NEXTVAL FROM DUAL
+						</selectKey>
+							...
+					</insert>
