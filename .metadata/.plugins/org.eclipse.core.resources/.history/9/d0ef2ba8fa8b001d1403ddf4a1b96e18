@@ -1,0 +1,67 @@
+package com.zeus.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.zeus.domain.Member;
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class MemberController9 {
+	@RequestMapping(value = "/registerSpringFormCheckbox01", method = RequestMethod.GET)
+	public String registerSpringFormCheckbox01(Model model) {
+		log.info("registerSpringFormCheckbox01");
+		model.addAttribute("member", new Member());
+		return "registerSpringFormCheckbox"; // 뷰 파일명
+	}
+
+	@RequestMapping(value = "/registerSpringFormCheckbox02", method = RequestMethod.GET)
+	public String registerSpringFormCheckbox02(Model model) {
+		log.info("registerSpringFormCheckbox02");
+		Member member = new Member();
+		member.setDeveloper("Y");
+		member.setForeigner(true);
+		member.setHobby("Movie");
+		String[] hobbyArray = { "Music", "Movie" };
+		member.setHobbyArray(hobbyArray);
+		List<String> hobbyList = new ArrayList<String>();
+		hobbyList.add("Music");
+		hobbyList.add("Movie");
+		member.setHobbyList(hobbyList);
+		model.addAttribute("member", member);
+		return "registerSpringFormCheckbox"; // 뷰 파일명
+	}
+
+// 입력 처리
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member, Model model) {
+		log.info("register");
+		log.info("member.isForeigner() = " + member.isForeigner());
+		log.info("member.getDeveloper() = " + member.getDeveloper());
+		log.info("member.getHobby() = " + member.getHobby());
+		String[] hobbyArray = member.getHobbyArray();
+		if (hobbyArray != null) {
+			log.info("hobbyArray != null = " + hobbyArray.length);
+			for (int i = 0; i < hobbyArray.length; i++) {
+				log.info("hobbyArray[" + i + "] = " + hobbyArray[i]);
+			}
+		} else {
+			log.info("hobbyArray == null");
+		}
+		List<String> hobbyList = member.getHobbyList();
+		if (hobbyList != null) {
+			log.info("hobbyList != null = " + hobbyList.size());
+			for (int i = 0; i < hobbyList.size(); i++) {
+				log.info("hobbyList(" + i + ") = " + hobbyList.get(i));
+			}
+		} else {
+			log.info("hobbyList == null");
+		}
+		model.addAttribute("member", member);
+		return "checkboxResult"; // 뷰 파일명
+	}
+}

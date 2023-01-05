@@ -1,0 +1,26 @@
+package com.hera.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hera.domain.Board;
+
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class AjaxController {
+	@PutMapping("/{boardNo}")
+	public ResponseEntity<String> modify(@PathVariable("boardNo") int boardNo,
+			@RequestBody Board board){
+		log.info("수정");
+		ResponseEntity<String> entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+		
+		return entity;
+	}
+}

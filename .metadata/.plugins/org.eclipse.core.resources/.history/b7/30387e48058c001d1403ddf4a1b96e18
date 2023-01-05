@@ -1,0 +1,135 @@
+package com.zeus.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.zeus.domain.CodeLabelValue;
+import com.zeus.domain.Member;
+import lombok.extern.java.Log;
+
+
+/*
+ * [ <form:select> ]
+ * 셀렉트 박스 요소
+ * - 스프링 폼 태그로 셀렉트 박스(콤보박스)를 출력하려면 <form:select>를 사용한다.
+ * - 다중 선택이 가능한 셀렉트 박스에서 원하는 항목을 여러 개 선택하고 등록 버튼을 누른다.
+ * 
+ * <form:select>역시, form에 생성되어 있지 않은 요소를 Controller에서 전달하기 때문에
+ * view의 <form:select>은 item속성이 필요하다.(model.addAttribute로 전달받은 데이터를 사용하기 위해)
+ * ① 모델에 Map 타입의 데이터를 생성하여 추가한 후에 화면에 전달한다.
+ *   : Map의 key와 value쌍으로 넘겨줄 경우 key는 태그의 value값이 되고 value는 label명이 된다.
+ * ② 모델에 List 타입의 데이터를 생성하여 추가한 후에 화면에 전달한다.
+ *   : List의 제네릭 타입으로 담기는 객체의
+ *     필드 이름이 label이고 value이어야 <form:checkboxes>에 넘길 수 있다.
+ * ③ 모델에 Map 타입의 데이터를 생성하여 추가한 후에 화면에 전달한다.
+ * 
+ * ④ 모델에 CodeLabelValue 타입의 요소를 가지는 List 타입의 데이터를 생성하여 추가한 후에 화면에
+ *   전달한다.
+ * ⑤ 모델에 CodeLabelValue 타입의 요소를 가지는 List 타입의 데이터를 생성하여 추가한 후에 화면에
+ *   전달한다. (뷰에서 선택항목의 선택 방법이 다름)
+
+ */
+@Log
+@Controller
+public class MemberController12 {
+	
+	//Map으로 보내기
+	@RequestMapping(value = "/registerSpringFormSelect01", method = RequestMethod.GET)
+	public String registerSpringFormSelect01(Model model) {
+		log.info("registerSpringFormSelect01");
+		
+		//value가 label이 되고, key가 value가 된다.
+		Map<String, String> nationalityCodeMap = new HashMap<String, String>();
+		nationalityCodeMap.put("01", "Korea");
+		nationalityCodeMap.put("02", "Germany");
+		nationalityCodeMap.put("03", "Australia");
+		model.addAttribute("nationalityCodeMap", nationalityCodeMap);
+		model.addAttribute("member", new Member());
+		return "12/registerSpringFormSelect01"; // 뷰 파일명
+	}
+
+	//List로 보내기
+	@RequestMapping(value = "/registerSpringFormSelect02", method = RequestMethod.GET)
+	public String registerSpringFormSelect02(Model model) {
+		log.info("registerSpringFormSelect02");
+		//List의 객체 CodeLabelValue의 필드명 중 label이 label이되고, value가 value가 되기 때문에
+		//필드변수명이 중요하다.
+		List<CodeLabelValue> nationalityCodeList = new ArrayList<CodeLabelValue>();
+		nationalityCodeList.add(new CodeLabelValue("01", "Korea"));
+		nationalityCodeList.add(new CodeLabelValue("02", "Germany"));
+		nationalityCodeList.add(new CodeLabelValue("03", "Australia"));
+		model.addAttribute("nationalityCodeList", nationalityCodeList);
+		model.addAttribute("member", new Member());
+		return "12/registerSpringFormSelect02"; // 뷰 파일명
+	}
+
+	//Map으로 보내기
+	@RequestMapping(value = "/registerSpringFormSelect03", method = RequestMethod.GET)
+	public String registerSpringFormSelect03(Model model) {
+		log.info("registerSpringFormSelect03");
+		//value가 label이 되고, key가 value가 된다.
+		Map<String, String> carCodeMap = new HashMap<String, String>();
+		carCodeMap.put("01", "Volvo");
+		carCodeMap.put("02", "Saab");
+		carCodeMap.put("03", "Opel");
+		model.addAttribute("carCodeMap", carCodeMap);
+		model.addAttribute("member", new Member());
+		return "12/registerSpringFormSelect03"; // 뷰 파일명
+	}
+
+	//List로 보내기
+	@RequestMapping(value = "/registerSpringFormSelect04", method = RequestMethod.GET)
+	public String registerSpringFormSelect04(Model model) {
+		log.info("registerSpringFormSelect04");
+		List<CodeLabelValue> carCodeList = new ArrayList<CodeLabelValue>();
+		carCodeList.add(new CodeLabelValue("01", "Volvo"));
+		carCodeList.add(new CodeLabelValue("02", "Saab"));
+		carCodeList.add(new CodeLabelValue("03", "Opel"));
+		model.addAttribute("carCodeList", carCodeList);
+		model.addAttribute("member", new Member());
+		return "12/registerSpringFormSelect04"; // 뷰 파일명
+	}
+
+	@RequestMapping(value = "/registerSpringFormSelect05", method = RequestMethod.GET)
+	public String registerSpringFormSelect05(Model model) {
+		log.info("registerSpringFormSelect05");
+		List<CodeLabelValue> carCodeList = new ArrayList<CodeLabelValue>();
+		carCodeList.add(new CodeLabelValue("01", "Volvo"));
+		carCodeList.add(new CodeLabelValue("02", "Saab"));
+		carCodeList.add(new CodeLabelValue("03", "Opel"));
+		model.addAttribute("carCodeList", carCodeList);
+		model.addAttribute("member", new Member());
+		return "12/registerSpringFormSelect05"; // 뷰 파일명
+	}
+
+	// 입력처리
+	@RequestMapping(value = "/register12", method = RequestMethod.POST)
+	public String register(Member member, Model model) {
+		log.info("register");
+		log.info("member.getNationality() = " + member.getNationality());
+		model.addAttribute("nationality", member.getNationality());
+		return "12/selectResult"; // 뷰 파일명
+	}
+
+	// 입력처리_2
+	@RequestMapping(value = "/register122", method = RequestMethod.POST)
+	public String register2(Member member, Model model) {
+		log.info("register2");
+		List<String> carList = member.getCarList();
+		if (carList != null) {
+			log.info("carList != null = " + carList.size());
+			for (int i = 0; i < carList.size(); i++) {
+				log.info("carList(" + i + ") = " + carList.get(i));
+			}
+		} else {
+			log.info("carList == null");
+		}
+		model.addAttribute("carList", member.getCarList());
+		return "12/selectResult2"; // 뷰 파일명
+	}
+}

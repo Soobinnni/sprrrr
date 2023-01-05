@@ -1,0 +1,35 @@
+package com.zeus.domain;
+
+import java.util.Date;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class MemberVa {
+	@NotBlank
+	private String userId;
+	// 문자열이 아니고 trim 한 길이가 0 보다 크다는 것을 검사한다.
+	@NotBlank
+	private String password;
+	// 문자열이 아니고 trim 한 길이가 3 보다 작다는 것을 검사한다.
+	@NotBlank
+	@Size(max = 3)
+	private String userName;
+	// 이메일 주소 형식인지 검사한다.
+	@Email
+	private String email;
+	private String gender;
+	// 입력값의 날짜 형식을 지정하고 과거 날짜인지를 검사한다.
+	@Past
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dateOfBirth;
+}

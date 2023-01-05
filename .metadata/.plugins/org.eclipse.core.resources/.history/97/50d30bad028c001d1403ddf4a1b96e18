@@ -1,0 +1,37 @@
+package com.zeus.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.zeus.domain.Member;
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class MemberController11 {
+	@RequestMapping(value = "/registerSpringFormRadiobutton01", method = RequestMethod.GET)
+	public String registerSpringFormRadiobutton01(Model model) {
+		log.info("registerSpringFormRadiobutton01");
+		model.addAttribute("member", new Member());
+		return "registerSpringFormRadiobutton"; // 뷰 파일명
+	}
+
+	@RequestMapping(value = "/registerSpringFormRadiobutton02", method = RequestMethod.GET)
+	public String registerSpringFormRadiobutton02(Model model) {
+		log.info("registerSpringFormRadiobutton02");
+		Member member = new Member();
+		member.setGender("female");
+		model.addAttribute("member", member);
+		return "registerSpringFormRadiobutton";
+	}
+
+	// 입력 처리
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member, Model model) {
+		log.info("register");
+		log.info("member.getGender() = " + member.getGender());
+		model.addAttribute("member", member);
+		return "radiobuttonResult";
+	}
+}

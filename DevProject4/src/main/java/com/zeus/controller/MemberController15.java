@@ -1,0 +1,47 @@
+package com.zeus.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.zeus.domain.MemberV;
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class MemberController15 {
+// 입력값 검증을 할 도메인 클래스에 @Vaildated를 지정한다.
+	@RequestMapping(value = "/registerValidation", method = RequestMethod.POST)
+	public String registerValidation(@Validated @ModelAttribute("member") MemberV member, BindingResult result) {
+		log.info("registerValidation");
+		if (result.hasErrors()) {
+			return "15/registerValidationForm"; // 뷰 파일명
+		}
+		log.info("member.getUserId() = " + member.getUserId());
+		log.info("member.getGender() = " + member.getGender());
+		return "15/success";
+	}
+
+	@RequestMapping(value = "/registerValidationForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		log.info("registerValidationForm01");
+		model.addAttribute("member", new MemberV());
+		return "15/registerValidationForm"; // 뷰 파일명
+	}
+
+	@RequestMapping(value = "/registerValidationForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		log.info("registerValidationForm02");
+		MemberV member = new MemberV();
+		member.setPassword("1234");
+		member.setEmail("aaa@ccc.com");
+		member.setUserName("홍길동");
+		member.setGender("female");
+		model.addAttribute("member", member);
+		return "15/registerValidationForm"; // 뷰 파일명
+	}
+}

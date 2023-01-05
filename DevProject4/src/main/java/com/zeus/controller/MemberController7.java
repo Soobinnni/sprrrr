@@ -1,0 +1,42 @@
+package com.zeus.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.zeus.domain.Member;
+import lombok.extern.java.Log;
+
+
+/*
+ * 텍스트 영역 요소
+ * 스프링 폼 태그로 텍스트 영역를 출력하려면 <form:textarea>를 사용한다.
+ */
+@Log
+@Controller
+public class MemberController7 {
+	@RequestMapping(value = "/registerSpringFormTextarea01", method = RequestMethod.GET)
+	public String registerSpringFormTextarea01(Model model) {
+		log.info("registerSpringFormTextarea01");
+		model.addAttribute("member", new Member());
+		return "7/registerSpringFormTextarea"; // 뷰 파일명
+	}
+
+	@RequestMapping(value = "/registerSpringFormTextarea02", method = RequestMethod.GET)
+	public String registerSpringFormTextarea02(Model model) {
+		log.info("registerSpringFormTextarea02");
+		Member member = new Member();
+		String introduction = "안녕하세요.\n반갑습니다.";
+		member.setIntroduction(introduction);
+		model.addAttribute("member", member);
+		return "7/registerSpringFormTextarea";
+	}
+
+// 입력 처리
+	@RequestMapping(value = "/register4", method = RequestMethod.POST)
+	public String register(Member member) {
+		log.info("register");
+		log.info("member.getIntroduction() = " + member.getIntroduction());
+		return "7/textareaResult"; // 뷰 파일명
+	}
+}

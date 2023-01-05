@@ -1,0 +1,8 @@
+package com.zeus;
+
+public class Snippet {
+	public static void main(String[] args) {
+		/board/register
+	}
+}
+

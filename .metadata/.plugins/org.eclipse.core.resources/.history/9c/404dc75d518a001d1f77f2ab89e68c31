@@ -1,0 +1,14 @@
+package com.hera.domain;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class Board implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	private int boardNol;
+	private String title;
+	private String content;
+	private String writer;
+	private Date regDate;
+}

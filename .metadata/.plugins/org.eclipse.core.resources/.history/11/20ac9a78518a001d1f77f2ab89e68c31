@@ -1,0 +1,29 @@
+package com.hera.domain;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class Board implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	private int boardNol;
+	private String title;
+	private String content;
+	private String writer;
+	private Date regDate;
+	//클래스는 기본 생성자를 가지고 있어야 한다.
+	public Board() {
+		super();
+	}
+	public Board(int boardNol, String title, String content, String writer, Date regDate) {
+		super();
+		this.boardNol = boardNol;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.regDate = regDate;
+	}
+	
+	
+	
+}

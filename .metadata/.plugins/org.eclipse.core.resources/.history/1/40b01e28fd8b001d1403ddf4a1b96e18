@@ -1,0 +1,50 @@
+package com.zeus.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.zeus.domain.CodeLabelValue;
+import com.zeus.domain.Member;
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class MemberController10 {
+	@RequestMapping(value = "/registerSpringFormRadiobuttons01", method = RequestMethod.GET)
+	public String registerSpringFormRadiobuttons01(Model model) {
+		log.info("registerSpringFormRadiobuttons01");
+		Map<String, String> genderColdeMap = new HashMap<String, String>();
+		genderColdeMap.put("01", "Male");
+		genderColdeMap.put("02", "Female");
+		genderColdeMap.put("03", "Other");
+		model.addAttribute("genderCodeMap", genderColdeMap);
+		model.addAttribute("member", new Member());
+		return "registerSpringFormRadiobuttons01"; // 뷰 파일명
+	}
+
+	@RequestMapping(value = "/registerSpringFormRadiobuttons02", method = RequestMethod.GET)
+	public String registerSpringFormRadiobuttons02(Model model) {
+		log.info("registerSpringFormRadiobuttons02");
+		List<CodeLabelValue> genderCodeList = new ArrayList<CodeLabelValue>();
+		genderCodeList.add(new CodeLabelValue("01", "Male"));
+		genderCodeList.add(new CodeLabelValue("02", "Female"));
+		genderCodeList.add(new CodeLabelValue("03", "Other"));
+		model.addAttribute("genderCodeList", genderCodeList);
+		model.addAttribute("member", new Member());
+		return "registerSpringFormRadiobuttons02"; // 뷰 파일명
+	}
+
+	// 입력 처리
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member, Model model) {
+		log.info("register");
+		log.info("member.getGender() = " + member.getGender());
+		model.addAttribute("gender", member.getGender());
+		return "radiobuttonsResult"; // 뷰 파일명
+	}
+}

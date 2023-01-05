@@ -1,0 +1,5 @@
+package com.hera.controller;
+
+public class AjaxController {
+
+}

@@ -1,0 +1,31 @@
+package com.zeus.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.zeus.domain.Member;
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class MemberController13 {
+	@RequestMapping(value = "/registerSpringFormHidden", method = RequestMethod.GET)
+	public String registerSpringFormHidden(Model model) {
+		log.info("registerSpringFormHidden");
+		Member member = new Member();
+		member.setUserId("hong");
+		member.setUserName("홍길동");
+		model.addAttribute("member", member);
+		return "registerSpringFormHidden"; // 뷰 파일명
+	}
+
+// 입력 처리
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		log.info("register");
+		log.info("member.getUserId() = " + member.getUserId());
+		log.info("member.getUserName() = " + member.getUserName());
+		return "hiddenResult";
+	}
+}

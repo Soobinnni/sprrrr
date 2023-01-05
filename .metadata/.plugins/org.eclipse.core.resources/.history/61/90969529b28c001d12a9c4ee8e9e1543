@@ -1,0 +1,18 @@
+package com.board.domain;
+
+/*
+ *	[JPA 소개]
+ *	 JPA(Java Persistent API)는 자바 진영의 ORM 기술 표준입니다. ORM(Object Relational Mapping)이란 객체는 객체대로, 
+ *	관계형 DB는 관계형 DB대로 설계하고 중간에서 ORM 프레임워크가 매핑 역할을 수행하는 것을 가르킵니다. 
+ *	JPA는 Application과 JDBC(Java Database Connectivity) 사이에서 동작합니다.
+ *
+ * CRUD 작업이 많이 간결화됩니다.
+ * - Create: jpa.persist(member)
+ * - Read: Member member = jpa.find(memberId)Update: member.setName("변경할 이름")
+ * - Delete: jpa.remove(member)
+ */
+
+
+public class Board {
+
+}

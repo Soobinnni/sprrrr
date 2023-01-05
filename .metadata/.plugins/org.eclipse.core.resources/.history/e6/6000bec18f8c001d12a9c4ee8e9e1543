@@ -1,0 +1,28 @@
+package com.zeus.domain;
+
+import java.util.Date;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class MemberVa {
+// 입력값 검증 규칙을 지정한다.
+	@NotBlank
+	private String userId;
+	private String password;
+// 여러 개의 입력값 검증 규칙을 지정할 수 있다.
+	@NotBlank
+	@Size(max = 3)
+	private String userName;
+	private String email;
+	private String gender;
+// 입력값의 날짜 형식을 지정한다.
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dateOfBirth;
+}

@@ -1,0 +1,52 @@
+package com.zeus.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.zeus.domain.Member2;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+public class MemberController2 {
+	@GetMapping(value = "/registerModelForm")
+	public String registerModelForm() {
+		log.info("registerModelForm");
+		return "registerModelForm"; // 뷰 파일명
+	}
+
+	@PostMapping(value = "/registerModelForm01")
+	public String registerModelForm01(String userId) {
+		log.info("registerModelForm01");
+		log.info("userId = " + userId); // null 출력
+		return "registerModelForm01"; // 뷰 파일명
+	}
+
+	@PostMapping(value = "/registerModelForm02")
+	public String registerModelForm02(@ModelAttribute("userId") String userId) {
+		log.info("registerModelForm02");
+		log.info("userId = " + userId);
+		return "registerModelForm02"; // 뷰 파일명
+	}
+
+	@PostMapping(value = "/registerModelForm03")
+	public String registerModelForm03(@ModelAttribute("userId") String userId,
+			@ModelAttribute("password") String password) {
+		log.info("registerModelForm03");
+		log.info("userId = " + userId);
+		log.info("password = " + password);
+		return "registerModelForm03"; // 뷰 파일명
+	}
+
+	@PostMapping(value = "/registerModelForm04")
+	public String registerModelForm04(Member2 member) {
+		log.info("registerModelForm04");
+		log.info("userId = " + member.getUserId());
+		log.info("password = " + member.getPassword());
+		return "registerModelForm04"; // 뷰 파일명
+	}
+
+}

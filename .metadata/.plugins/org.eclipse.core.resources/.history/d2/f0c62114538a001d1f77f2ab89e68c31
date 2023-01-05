@@ -1,0 +1,16 @@
+package com.hera.domain;
+
+import org.junit.jupiter.api.Test;
+
+public class LombokTest {
+
+	@Test
+	public void testNoArgsConstructor() {
+		
+	}
+	
+	@Test
+	public void testRequiredArgsConstructor() {
+		
+	}
+}

@@ -1,0 +1,99 @@
+package com.zeus.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.zeus.domain.CodeLabelValue;
+import com.zeus.domain.Member;
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class MemberController12 {
+	@RequestMapping(value = "/registerSpringFormSelect01", method = RequestMethod.GET)
+	public String registerSpringFormSelect01(Model model) {
+		log.info("registerSpringFormSelect01");
+		Map<String, String> nationalityCodeMap = new HashMap<String, String>();
+		nationalityCodeMap.put("01", "Korea");
+		nationalityCodeMap.put("02", "Germany");
+		nationalityCodeMap.put("03", "Australia");
+		model.addAttribute("nationalityCodeMap", nationalityCodeMap);
+		model.addAttribute("member", new Member());
+		return "registerSpringFormSelect01"; // 뷰 파일명
+	}
+
+	@RequestMapping(value = "/registerSpringFormSelect02", method = RequestMethod.GET)
+	public String registerSpringFormSelect02(Model model) {
+		log.info("registerSpringFormSelect02");
+		List<CodeLabelValue> nationalityCodeList = new ArrayList<CodeLabelValue>();
+		nationalityCodeList.add(new CodeLabelValue("01", "Korea"));
+		nationalityCodeList.add(new CodeLabelValue("02", "Germany"));
+		nationalityCodeList.add(new CodeLabelValue("03", "Australia"));
+		model.addAttribute("nationalityCodeList", nationalityCodeList);
+		model.addAttribute("member", new Member());
+		return "registerSpringFormSelect02"; // 뷰 파일명
+	}
+
+	@RequestMapping(value = "/registerSpringFormSelect03", method = RequestMethod.GET)
+	public String registerSpringFormSelect03(Model model) {
+		log.info("registerSpringFormSelect03");
+		Map<String, String> carCodeMap = new HashMap<String, String>();
+		carCodeMap.put("01", "Volvo");
+		carCodeMap.put("02", "Saab");
+		carCodeMap.put("03", "Opel");
+		model.addAttribute("carCodeMap", carCodeMap);
+		model.addAttribute("member", new Member());
+		return "registerSpringFormSelect03"; // 뷰 파일명
+	}
+
+	@RequestMapping(value = "/registerSpringFormSelect04", method =
+	RequestMethod.GET)
+	public String registerSpringFormSelect04(Model return "registerSpringFormSelect04"; // 뷰 파일명
+}
+
+	@RequestMapping(value = "/registerSpringFormSelect05", method = RequestMethod.GET)
+	public String registerSpringFormSelect05(Model model) {
+		log.info("registerSpringFormSelect05");
+		List<CodeLabelValue> carCodeList = new ArrayList<CodeLabelValue>();
+		carCodeList.add(new CodeLabelValue("01", "Volvo"));
+		carCodeList.add(new CodeLabelValue("02", "Saab"));
+		carCodeList.add(new CodeLabelValue("03", "Opel"));
+		model.addAttribute("carCodeList", carCodeList);
+		model.addAttribute("member", new Member());
+		return "registerSpringFormSelect05"; // 뷰 파일명
+	}
+
+// 입력처리
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member, Model model) {
+		log.info("register");
+		log.info("member.getNationality() = " + member.getNationality());
+		model.addAttribute("nationality", member.getNationality());
+		return "selectResult"; // 뷰 파일명
+	}
+
+// 입력처리_2
+	@RequestMapping(value = "/register2", method = RequestMethod.POST)
+	public String register2(Member member, Model model) {
+		log.info("register2");
+		List<String> carList = member.getCarList();
+		if (carList != null) {
+			log.info("carList != null = " + carList.size());
+			for (int i = 0; i < carList.size(); i++) {
+				log.info("carList(" + i + ") = " + carList.get(i));
+			}
+		} else {
+			log.info("carList == null");
+		}
+		model.addAttribute("carList", member.getCarList());
+		return "selectResult2"; // 뷰 파일명
+	}
+}){log.info("registerSpringFormSelect04");
+
+List<CodeLabelValue> carCodeList = new ArrayList<CodeLabelValue>();carCodeList.add(new CodeLabelValue("01","Volvo"));carCodeList.add(new CodeLabelValue("02","Saab"));carCodeList.add(new CodeLabelValue("03","Opel"));model.addAttribute("carCodeList",carCodeList);model.addAttribute("member",new Member())
+;

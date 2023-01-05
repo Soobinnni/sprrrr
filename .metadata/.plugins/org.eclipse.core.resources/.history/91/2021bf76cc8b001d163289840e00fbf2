@@ -1,0 +1,195 @@
+package com.zeus.controller;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.zeus.domain.Address;
+import com.zeus.domain.Card;
+import com.zeus.domain.Member;
+
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class MemberController1 {
+	@GetMapping("/model01")
+	public String model01(Model model) {
+		log.info("model01");
+
+		/* 전자의 param으로 후자의 value를 view에 전달한다(Model은 데이터 출력 객체)
+			전달된 model객체의 key명으로 value를 표현언어로 출력한다. ex : ${userId} */
+		model.addAttribute("userId", "hong");
+		model.addAttribute("password", "1234");
+		model.addAttribute("email", "aaa@ccc.com");
+		model.addAttribute("userName", "홍길동");
+		model.addAttribute("birthDay", "1989-09-07");
+		return "1/model01";
+	}
+
+	@GetMapping(value = "/model02")
+	public String model02(Model model) {
+		log.info("model02");
+		Member member = new Member();
+		member.setUserId("hongkd");
+		member.setPassword("1234");
+		member.setEmail("aaa@ccc.com");
+		member.setUserName("홍길동");
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 1988);
+		cal.set(Calendar.MONTH, 10);
+		cal.set(Calendar.DAY_OF_MONTH, 7);
+		member.setDateOfBirth(cal.getTime());
+
+		// Member객체를 전달 - > view에선, 표현언어로 ${member.필드변수명}으로 Member의 필드멤버를 사용할 수 있다.
+		model.addAttribute(member);
+		return "1/model02"; // 뷰 파일명
+	}
+
+	@GetMapping(value = "/model03")
+	public String model03(Model model) {
+		log.info("model03");
+		
+		//String 배열인 carArray
+		String[] carArray = { "saab", "audi" };
+		
+		//List객체인 carList
+		List<String> carList = new ArrayList<String>();
+		carList.add("saab");
+		carList.add("audi");
+		
+		//String 배열인 hobbyArray
+		String[] hobbyArray = { "Music", "Movie" };
+		
+		//List객체인 hobbyList
+		List<String> hobbyList = new ArrayList<String>();
+		hobbyList.add("Music");
+		hobbyList.add("Movie");
+		
+		//Model 전달.
+		model.addAttribute("carArray", carArray); //String 배열 전달
+		model.addAttribute("carList", carList); //List객체 전달
+		model.addAttribute("hobbyArray", hobbyArray); //String 배열 전달
+		model.addAttribute("hobbyList", hobbyList); //List 객체 전달
+		return "1/model03"; // 뷰 파일명
+	}
+
+	@GetMapping(value = "/model04")
+	public String model04(Model model) {
+		/* 
+		 * Member의 필드 중 private Address address; private List<Card> cardList;
+		 * 를 set하여 addAttribute
+		 */
+		log.info("model04");
+		
+		//Member 객체 생성
+		Member member = new Member();
+		
+		//Address 객체 생성
+		Address address = new Address(); 
+		//Address 초기화
+		address.setPostCode("080908");
+		address.setLocation("seoul");
+		
+		//address member에 set
+		member.setAddress(address); 
+		
+		//List, Card객체 생성
+		List<Card> cardList = new ArrayList<Card>();
+		
+		//Card card1객체 생성. Card의 필드변수 : private String no; @DateTimeFormat(pattern = "yyyyMMdd") private Date validMonth;
+		Card card1 = new Card();
+		//String no set
+		card1.setNo("123456");
+		//Date validMonth set
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 2020);
+		cal.set(Calendar.MONTH, 9);
+		cal.set(Calendar.DAY_OF_MONTH, 8);
+		card1.setValidMonth(cal.getTime());
+		cardList.add(card1); //add cardList
+		
+		//Card card2객체 생성.
+		Card card2 = new Card();
+		//String no set
+		card2.setNo("456786");
+		//Date validMonth set
+		cal.set(Calendar.YEAR, 2020);
+		cal.set(Calendar.MONTH, 11);
+		cal.set(Calendar.DAY_OF_MONTH, 12);
+		card2.setValidMonth(cal.getTime());
+		cardList.add(card2);//add cardList
+		
+		//cardList member에 set
+		member.setCardList(cardList);
+		
+		//member를 view에 전달
+		model.addAttribute("user", member);
+		return "1/model04"; // 뷰 파일명
+	}
+
+	@GetMapping(value = "/model05")
+	public String model05(Model model) {
+		log.info("model05");
+		Member member = new Member();
+		member.setUserId("hong");
+		member.setPassword("1234");
+		member.setEmail("aaa@ccc.com");
+		member.setUserName("홍길동");
+		member.setGender("female");
+		member.setDeveloper("Y");
+		member.setForeigner(true);
+		member.setNationality("Australia");
+		// user.setCars("saab,audi");
+		member.setCars("saab");
+		String[] carArray = { "saab", "audi" };
+		member.setCarArray(carArray);
+		List<String> carList = new ArrayList<String>();
+		carList.add("saab");
+		carList.add("audi");
+		member.setCarList(carList);
+		member.setHobby("Movie");
+		String[] hobbyArray = { "Music", "Movie" };
+		member.setHobbyArray(hobbyArray);
+		List<String> hobbyList = new ArrayList<String>();
+		hobbyList.add("Music");
+		hobbyList.add("Movie");
+		member.setHobbyList(hobbyList);
+		Address address = new Address();
+		address.setPostCode("080908");
+		address.setLocation("seoul");
+		member.setAddress(address);
+		List<Card> cardList = new ArrayList<Card>();
+		Card card1 = new Card();
+		card1.setNo("123456");
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 2020);
+		cal.set(Calendar.MONTH, 9);
+		cal.set(Calendar.DAY_OF_MONTH, 8);
+		card1.setValidMonth(cal.getTime());
+		cardList.add(card1);
+		Card card2 = new Card();
+		card2.setNo("456786");
+		cal.set(Calendar.YEAR, 2022);
+		cal.set(Calendar.MONTH, 11);
+		cal.set(Calendar.DAY_OF_MONTH, 7);
+		card2.setValidMonth(cal.getTime());
+		cardList.add(card2);
+		member.setCardList(cardList);
+		cal.set(Calendar.YEAR, 1988);
+		cal.set(Calendar.MONTH, 10);
+		cal.set(Calendar.DAY_OF_MONTH, 7);
+		member.setDateOfBirth(cal.getTime());
+		String introduction = "안녕하세요.\n반갑습니다.";
+		member.setIntroduction(introduction);
+		model.addAttribute("user", member);
+		return "1/model05"; // 뷰 파일명
+	}
+
+}

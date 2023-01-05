@@ -1,0 +1,113 @@
+package com.hera.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hera.domain.Member;
+
+import lombok.extern.java.Log;
+
+/*
+ * void타입의 메서드는 요청 경로(/modify)와 동일한 뷰(modify.jsp)를 가리킨다.
+ */
+@Log
+@Controller
+public class HomeController {
+	@GetMapping("/formHome")
+	public String formHome() {
+		log.info("GET방식 formHome");
+		return "formHome";
+	}
+
+	@GetMapping("/ajaxHome")
+	public String ajaxHome() {
+		log.info("headers 속성 매핑");
+		return "ajaxHome";
+	}
+
+	@GetMapping("/ajaxHomeXML")
+	public String ajaxHomeXML() {
+		log.info("headers 속성 매핑");
+		return "ajaxHomeXML";
+	}
+
+	@GetMapping("/ajaxAccept")
+	public String ajaxAccept() {
+		log.info("headers 속성 매핑");
+		return "ajaxAccept";
+	}
+
+	@GetMapping("/gohome01")
+	public void voidTest() {
+		// void 타입. mapping 이름 == jsp경로
+		log.info("void타입 /gohome01");
+	}
+
+	@GetMapping("/sub/gohome01")
+	public void voidTest2() {
+		// void 타입. mapping 이름 == jsp경로
+		log.info("void타입 /sub/gohome01");
+	}
+
+	// 자바 빈즈 타입
+
+	// 1. 객체
+	@ResponseBody
+	@GetMapping("/javaBeans")
+	public Member beansHome() {
+		log.info("member 자바 빈즈 타입 리턴");
+		Member member = new Member();
+		return member;
+	}
+
+	// 2. list타입
+	@ResponseBody
+	@GetMapping(value = "/gohome09")
+	public List<Member> home07() {
+		log.info("컬렉션 List 타입 home07");
+		List<Member> list = new ArrayList<Member>();
+		
+		Member member = new Member();
+		member.setUserId("user01");
+		member.setPassword("hong1234");
+		member.setUserName("홍길동");
+		list.add(member);
+		
+		Member member2 = new Member();
+		member2.setUserId("user02");
+		member2.setPassword("lee5678");
+		member2.setUserName("이순신");
+		list.add(member2);
+		
+		return list;
+	}
+	
+	// 3. map 타입
+	@ResponseBody
+	@GetMapping("/gohome10")
+	public Map<String, Member> home08(){
+		Map<String, Member> map = new HashMap<>();
+		
+		Member member = new Member();
+		member.setUserId("user03");
+		member.setPassword("gap1234");
+		member.setUserName("갑돌이");
+		map.put("key1", member);
+		
+		Member member2 = new Member();
+		member2.setUserId("user04");
+		member2.setPassword("gap5678");
+		member2.setUserName("갑순이");
+		map.put("key2", member2);
+
+		return map;
+	}
+}

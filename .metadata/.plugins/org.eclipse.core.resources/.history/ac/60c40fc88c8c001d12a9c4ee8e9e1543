@@ -1,0 +1,38 @@
+package com.zeus.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.zeus.domain.Member;
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class MemberController14 {
+	@RequestMapping(value = "/registerSpringFormErrors", method = RequestMethod.GET)
+	public String registerSpringFormErrors(Model model) {
+		log.info("registerSpringFormErrors");
+		Member member = new Member();
+		member.setEmail("aaa@ccc.com");
+		member.setUserName("홍길동");
+		model.addAttribute("member", member);
+		return "14/registerSpringFormErrors"; // 뷰 파일명
+	}
+
+// 입력 처리
+	@RequestMapping(value = "/register14", method = RequestMethod.POST)
+	public String register(@Validated Member member, BindingResult result) {
+		log.info("register");
+		// 에러 처리
+		if (result.hasErrors()) {
+			return "registerSpringFormErrors";
+		}
+		log.info("member.getUserId() = " + member.getUserId());
+		log.info("member.getUserName() = " + member.getUserName());
+		log.info("member.getEmail() = " + member.getEmail());
+		return "14/errorsResult";
+	}
+}

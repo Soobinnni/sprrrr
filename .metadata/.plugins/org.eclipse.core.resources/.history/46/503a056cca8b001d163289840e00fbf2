@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>모델을 통한 데이터 전달</title>
+</head>
+<body>
+	<h2>model03 결과</h2>
+	<h4>carArray :</h4>
+	<!-- String 배열인 carArray -->
+	<c:forEach var="car" items="${carArray}">
+		<c:out value="${car}" />
+		<br>
+	</c:forEach>
+	<!-- List객체인 carList -->
+	<h4>carList :</h4>
+	<c:forEach var="car" items="${carList}">
+		<c:out value="${car}" />
+		<br>
+	</c:forEach>
+	<!-- String 배열인 hobbyArray -->
+	<h4>hobbyArray :</h4>
+	<c:forEach var="hobby" items="${hobbyArray}">
+		<c:out value="${hobby}" />
+		<br>
+	</c:forEach>
+	<!-- List객체인 hobbyList -->
+	<h4>hobbyList :</h4>
+	<c:forEach var="hobby" items="${hobbyList}">
+		<c:out value="${hobby}" />
+		<br>
+	</c:forEach>
+</body>
+</html>

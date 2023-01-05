@@ -1,0 +1,47 @@
+package com.board.dao;
+
+import org.springframework.stereotype.Repository;
+
+import com.board.domain.Board;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+@Repository
+public class BoardDAO {
+
+	//자동주입
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	// ----------------------create------------------------------
+	public void create(Board board) throws Exception{
+		String query = "insert into jdbcBoard(board_no, title, content, writer) values ";
+		query += "(jdbcBoard.seq.NEXTVAL, ?, ?, ?)";
+		jdbcTemplate.update(query, board.getTitle(), board.getContent(), board.getWriter());
+	}
+	
+	// ----------------------read------------------------------
+	public Board read(Integer boardNo) throws Exception{
+		String query = "select * from jdbcBoard where board_no =?";
+		List<Board> results = jdbcTemplate.quer
+		return null;
+	}
+	
+	// ----------------------update------------------------------
+	public void update(Board board) throws Exception{
+		
+	}
+	
+	// ----------------------delete------------------------------
+	public void delete(Integer boardNo) throws Exception{
+		
+	}
+	
+	// ----------------------list------------------------------
+	public List<Board> list() throws Exception{
+		return null;
+	}
+}

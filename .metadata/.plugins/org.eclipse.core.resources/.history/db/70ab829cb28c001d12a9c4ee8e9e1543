@@ -1,0 +1,38 @@
+package com.board.domain;
+
+/*
+ *	[JPA 소개]
+ *	 JPA(Java Persistent API)는 자바 진영의 ORM 기술 표준입니다. ORM(Object Relational Mapping)이란 객체는 객체대로, 
+ *	관계형 DB는 관계형 DB대로 설계하고 중간에서 ORM 프레임워크가 매핑 역할을 수행하는 것을 가르킵니다. 
+ *	JPA는 Application과 JDBC(Java Database Connectivity) 사이에서 동작합니다.
+ *
+ * CRUD 작업이 많이 간결화됩니다.
+ * - Create: jpa.persist(member)
+ * - Read: Member member = jpa.find(memberId)
+ * - Update: member.setName("변경할 이름")
+ * - Delete: jpa.remove(member)
+ * 
+ * [ Entity 매핑 ]
+ * - @Entity가 붙은 클래스는 JPA가 관리하며, 이를 Entity라고 합니다. 
+ * - Entity의 경우 기본 생성자가 필수이며 당연하게도 final과 같은 field가 있으면 안됩니다.
+ * 
+ * [ @Table ]
+ * - @Table은 Entity와 매핑할 테이블 지정합니다. 
+ * - name 속성으로 매핑할 테이블 이름을 정할 수 있고, 기본값은 Entity 이름입니다. 
+ * - 이외에도 catalog, schema, uniqueConstraints 등의 옵션이 있습니다.
+ * 
+ * [ Field와 Column 매핑 ]
+ * - 필드멤버에 @Id, @Column, @Temporal 등을 선언한다.
+ * 
+ * [ @Temporal ] 
+ * - 자바 날짜 타입을 매핑할 때 사용합니다. 
+ * - 근래 들어서는 LocalDate, LocalDateTime을 타입으로 하면, 최신 하이버네이트가 지원하기 때문에 annotation을 생략할 수 있습니다.
+ * 
+ * [ 기본 Key 매핑 ]
+ * - Entity를 식별할 수 있는 Key를 매핑할 때 사용할 수 있는 annotation(@Id, @GeneratedValue)과 속성(전략)이 있습니다.
+ */
+
+
+public class Board {
+
+}

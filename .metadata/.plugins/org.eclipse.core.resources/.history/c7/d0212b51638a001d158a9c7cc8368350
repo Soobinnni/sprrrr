@@ -1,0 +1,19 @@
+package com.hera.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+@RequestMapping("/board")
+public class paramController {
+	//get, post형식 확인
+	@GetMapping(value="/get", params="register") //== get?register
+	public String registerForm() {
+		log.info("params 파라미터 GET 방식 등록 폼");
+		return "success";
+	}
+}

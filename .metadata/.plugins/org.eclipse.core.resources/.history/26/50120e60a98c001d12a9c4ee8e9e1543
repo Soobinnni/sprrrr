@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="false"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Board</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var formObj = $("#board");
+		console.log(formObj);
+		$("#btnModify").on("click", function() {
+			var boardNo = $("#boardNo");
+			var boardNoVal = boardNo.val();
+			self.location = "/board/modify?boardNo=" + boardNoVal;
+		});
+		$("#btnRemove").on("click", function() {
+			formObj.attr("action", "/board/remove");
+			formObj.submit();
+		});
+		$("#btnList").on("click", function() {
+			self.location = "/board/list";
+		});
+
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>

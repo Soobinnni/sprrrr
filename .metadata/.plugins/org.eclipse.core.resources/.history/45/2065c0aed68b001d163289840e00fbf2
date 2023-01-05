@@ -1,0 +1,65 @@
+package com.zeus.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.zeus.domain.Member2;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+public class MemberController2 {
+	
+	/*
+	 * Controller는 view의 요청 데이터를 여러 방식으로 전달받을 수 있지만
+	 * Controller -> view의 데이터 전달은 Model 객체를 통해서만 가능
+	 * Model전달 객체 대신, @ModelAttribute를 통해 Controller 파리미터명 == 표현언어변수
+	 * 이면, Controller의 조작 데이터를 view에서 사용할 수 있다(기본 자료형).
+	 * @ModelAttribute는 전달받은 매개변수를 강제로 Model에 담아서 전달하도록 할 때 사용
+	 */
+	
+	@GetMapping(value = "/registerModelForm")
+	public String registerModelForm() {
+		log.info("registerModelForm");
+		return "2/registerModelForm"; // 뷰 파일명
+	}
+
+	@PostMapping(value = "/registerModelForm01")
+	public String registerModelForm01(String userId) {
+		log.info("registerModelForm01");
+		log.info("userId = " + userId); // view에서 null 출력
+		return "2/registerModelForm01"; // 뷰 파일명
+	}
+
+	@PostMapping(value = "/registerModelForm02")
+	public String registerModelForm02(@ModelAttribute("userId") String userId) {
+		log.info("registerModelForm02");
+		log.info("userId = " + userId); /* Model객체의 addAttribute없이도 
+											@ModelAttribute어노테이션으로의 속성명으로 데이터 전달 가능 */
+		return "2/registerModelForm02"; // 뷰 파일명
+	}
+
+	@PostMapping(value = "/registerModelForm03")
+	public String registerModelForm03(@ModelAttribute("userId") String userId,
+			@ModelAttribute("password") String password) {
+		log.info("registerModelForm03");
+		log.info("userId = " + userId);
+		log.info("password = " + password);
+		return "2/registerModelForm03"; // 뷰 파일명
+	}
+
+	@PostMapping(value = "/registerModelForm04") //결론 : 못 넘김
+	public String registerModelForm04(Member2 member/*, Model model*/) {
+		log.info("registerModelForm04");
+		log.info("userId = " + member.getUserId());
+		log.info("password = " + member.getPassword());
+		
+		//model.addAttribute("member",member);
+		return "2/registerModelForm04"; // 뷰 파일명
+	}
+
+}

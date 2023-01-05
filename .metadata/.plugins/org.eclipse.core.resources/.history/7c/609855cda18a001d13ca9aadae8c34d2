@@ -1,0 +1,19 @@
+package com.hera.domain;
+
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+import lombok.ToString;
+
+@ToString
+@Getter
+@Setter
+public class ExampClass {
+	private int boardNoo;
+	private String title3;
+	private String contentt;
+	private String writesr;
+	private Date regDate;
+}

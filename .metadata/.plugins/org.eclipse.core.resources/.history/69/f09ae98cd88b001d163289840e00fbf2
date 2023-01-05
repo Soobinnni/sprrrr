@@ -1,0 +1,33 @@
+package com.zeus.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.zeus.domain.Member;
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class MemberController3 {
+	@GetMapping(value = "/registerRedirectAttributesForm")
+	public String registerRedirectAttributesForm() {
+		log.info("registerRedirectAttributesForm");
+		return "registerRedirectAttributesForm"; // 뷰 파일명
+	}
+
+	@PostMapping(value = "/registerRedirectAttributes")
+	public String registerRedirectAttributes(Member member, RedirectAttributes rttr) throws Exception {
+		log.info("registerRedirectAttributes");
+		rttr.addFlashAttribute("msg", "success");
+		return "redirect:/result"; // 연결 뷰 파일명
+	}
+
+	@GetMapping(value = "/result")
+	public String result() {
+		log.info("result");
+		return "result"; // 뷰 파일명
+	}
+}

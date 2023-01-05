@@ -1,0 +1,8 @@
+package com.zeus.domain;
+
+public class Snippet {
+	public static void main(String[] args) {
+		 isELIgnored
+	}
+}
+

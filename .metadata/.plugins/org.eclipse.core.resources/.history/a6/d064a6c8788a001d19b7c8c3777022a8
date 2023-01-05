@@ -1,0 +1,47 @@
+package com.hera.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class HomeController {
+	@GetMapping("/formHome")
+	public String formHome() {
+		log.info("GET방식 formHome");
+		return "formHome";
+	}
+
+	@GetMapping("/ajaxHome")
+	public String ajaxHome() {
+		log.info("headers 속성 매핑");
+		return "ajaxHome";
+	}
+
+	@GetMapping("/ajaxHomeXML")
+	public String ajaxHomeXML() {
+		log.info("headers 속성 매핑");
+		return "ajaxHomeXML";
+	}
+
+	@GetMapping("/ajaxAccept")
+	public String ajaxAccept() {
+		log.info("headers 속성 매핑");
+		return "ajaxAccept";
+	}
+	
+	@GetMapping("/gohome01")
+	public void voidTest() { 
+		//void 타입. mapping 이름 == jsp경로 
+		log.info("void타입 01");
+	}
+
+	@GetMapping("/gohome01")
+	public void voidTest() { 
+		//void 타입. mapping 이름 == jsp경로 
+		log.info("void타입 01");
+	}
+}

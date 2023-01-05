@@ -1,0 +1,18 @@
+package com.zeus.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+public class CodeLabelValue {
+	//필드 이름이 label이고 value이어야 <form:checkboxes>에 넘길 수 있다.
+	private String lala;
+	private String lulu;
+}
