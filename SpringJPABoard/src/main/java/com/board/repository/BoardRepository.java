@@ -1,0 +1,40 @@
+package com.board.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.board.domain.Board;
+
+/*
+ * [ JpaRepository 표준 방법 ]
+ * - 상속받은 JpaRepository 에는 표준에서 몇 개의 메서드가 정의되어 있다. 우선 그들을 사용하여
+ * - 데이터베이스의 기본적인 조작이 가능하다. 
+ * - 따라서 개발자가 따로 DAO를 구현할 필요가 없다.
+
+ * - findAll() 
+ * 	전체 엔터티를 정리한 List 를 돌려준다.
+
+ * - getOne("ID")
+	ID 를 지정하여 엔터티를 하나를 얻어온다. 인수에는 그 엔터티의 ID 에 지정된 형식의 값이 들어간다.
+
+ * - save(엔티티)
+
+ * - saveAndFlush(엔티티)
+	인수에 지정된 엔티티를 데이터베이스에 저장한다.
+
+ * - delete("ID")
+
+ * - deleteById("ID")
+	인수에 지정된 ID 의 엔티티를 데이터베이스에서 삭제한다.
+
+ * - count()
+	엔티티의 수를 int 값으로 반환한다.
+
+
+ */
+
+public interface BoardRepository extends JpaRepository<Board, Long> {
+	/*JpaRepository의 제네릭은
+	 * 1) 엔티티
+	 * 2) 엔티티에서 사용할 PK 데이터 타입
+	 */
+}

@@ -1,0 +1,15 @@
+
+
+@Autowired의 DI(의존성 주입)
+
+class People로 예시
+
+〮 필드 기반 의존성 주입 
+public class People {
+	@Autowired
+	private Address address;
+}
+〮 생성자 기반 의존성 주입 == 생성자는 오버로드 생성자(인자가 존재하는)이어야 한다.
+@Autowired 
+
+〮 세터 기반 의존성 주입

@@ -1,0 +1,62 @@
+package com.zeus.controller;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class HomeController {
+	/*
+	 * @GetMapping("/") public String home(Locale locale, Model model) {
+	 * log.info("환영합니다. 클라이언트 지역은 " + locale + "입니다.");
+	 * 
+	 * Date date = new Date(); DateFormat dateFormat =
+	 * DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+	 * 
+	 * String formattedDate = dateFormat.format(date);
+	 * 
+	 * model.addAttribute("serverTime", formattedDate);
+	 * 
+	 * return "home"; }
+	 */
+
+	/*
+	 * .properties는 응용 프로그램의 구성 가능한 파라미터들을 저장하기 위해 자바 관련 기술들을 주로 사용하는 파일들을 위한 파일 확장자다.
+	 * 
+	 * [ 형식 ] 
+	 * - key = vlaue
+	 * - ex : Hello = 안녕 */
+	
+	/* 1) jsp에서 .properties 확장자 활용하기
+	 * - <spring:message> 태그.
+	 *   └ code 속성 : 
+	 *   └ arguments 속성
+	 * - 예시 
+	 * 		Hello.properties의 내용-> Hello = {0}님 안녕하세요
+	 * 		ⓐ<spring:message code="Hello" />  ⓑ<spring:message code="hello" arguments="kim" />   
+	 * - 결과 : ⓐ{0}님 안녕하세요 ⓑkim님 안녕하세요
+	 */
+	@GetMapping("/")
+	public String home2(Locale locale, Model model) {
+		log.info("환영합니다. 클라이언트 지역은 " + locale + "이다.");
+		
+		Date date = new Date();
+		
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		String formattedDate = dateFormat.format(date);
+		model.addAttribute("serverTime", formattedDate);
+		return "home2"; // 뷰 파일명
+	}
+	
+	/*
+	 * 
+	 */
+
+}

@@ -53,6 +53,8 @@ C:\SpringBootProject\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspse
 \DevProject4\src\main\java
 C:\SpringBootProject\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\683143464.index
 \SpringJDBCBoard\src\main\java
+C:\SpringBootProject\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2791389468.index
+\SpringJPABoard\src\main\java
 C:\SpringBootProject\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2091526840.index
 \SpringJDBCBoard\src\main\java
 C:\SpringBootProject\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1160750183.index

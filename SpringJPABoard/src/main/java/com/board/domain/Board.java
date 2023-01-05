@@ -47,8 +47,12 @@ import lombok.ToString;
  * 
  * [ 기본 Key 매핑 ]
  * - Entity를 식별할 수 있는 Key를 매핑할 때 사용할 수 있는 annotation(@Id, @GeneratedValue)과 속성(전략)이 있습니다.
- * - Key로 매핑할 Field에 @Id annotation만 사용하면 됩니다.
- * - 자동생성(기본 키 생성 전략) : Entity 객체 생성 시 자동으로 Key를 정해주는 방법으로, 각 전략에 따라서 자동 생성됩니다.
+ * 
+ * [ @Id ]
+ * - Key(PK)로 매핑할 Field에 @Id annotation만 사용하면 됩니다.
+ * 
+ * [ 자동생성 ]
+ * - 자동생성 : Entity 객체 생성 시 자동으로 Key를 정해주는 방법으로, 각 전략에 따라서 자동 생성됩니다.
  * - 전략 중 하나, identity 사용하기 : @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
  * - 전략 중 하나, sequence 사용하기 : @Id @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SequenceGenerator의 name에 선언해놓은 이름")
  * 
@@ -77,8 +81,8 @@ import lombok.ToString;
 @Table(name = "jpaboard") // 데이터베이스 테이블명
 public class Board {
 
-@Id
-@GeneratedValue(strategy= GenerationType.SEQUENCE, /* 사용할 전략을 시퀀스로 선택 */ generator="JPABOARD_SEQ_GEN") //식별자 생성기를 설정해놓은 JPABOARD_SEQ_GEN 으로 설정
+	@Id
+	@GeneratedValue(strategy= GenerationType.SEQUENCE, /* 사용할 전략을 시퀀스로 선택 */ generator="JPABOARD_SEQ_GEN") //식별자 생성기를 설정해놓은 JPABOARD_SEQ_GEN 으로 설정
 	@Column(name = "board_no") // @Column(name = "컬럼명")
 	private Long boardNo;
 

@@ -1,0 +1,57 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.board.domain.Board;
+import com.board.service.BoardService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+@RequestMapping("/board")
+public class BoardController {
+
+	//자동 주입
+	@Autowired
+	private BoardService service;
+
+	//--------------------------------register------------------------------------------
+	@GetMapping("/register")
+	public void registerForm(Board board, Model model) {
+		log.info("registerForm");
+		
+		//void 타입의 메서드는 매핑명과 동일한 jsp view로 이동(/board/register)
+	}
+	
+	@PostMapping("/register")
+	public String register(Board board, Model model) throws Exception{
+		log.info("register");
+		
+		//service객체에 전달
+		service.register(board);
+		
+		//success.jsp에 ${msg}전달
+		model.addAttribute("msg", "등록이 완료됐습니다.");
+		return "/board/success";
+	}
+	
+	//-----------------------------------list---------------------------------------
+	@GetMapping("/list")
+	public void list(Model model) throws Exception{
+		model.addAttribute("list", service.list());
+		//void 타입의 메서드는 매핑명과 동일한 jsp view로 이동(/board/list)
+	}
+	
+	//-----------------------------------read---------------------------------------
+	@GetMapping("/read")
+	public void read() throws Exception {
+		
+	}
+	// key값이 없을 경우 바인딩 객체의 클래스명의 앞글자만 소문자로 대체한 클래스명이 key로 전송된다.
+	//----------------------------------remove----------------------------------------
+	//----------------------------------modify----------------------------------------
+}

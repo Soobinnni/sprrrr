@@ -1,8 +1,0 @@
-package com.board.service;
-
-import com.board.domain.Board;
-
-public interface BoardService {
-	public void register(Board board);
-	public void list();
-}

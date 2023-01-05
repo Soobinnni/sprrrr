@@ -1,0 +1,97 @@
+package com.board.service;
+
+import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+
+import com.board.domain.Board;
+import com.board.repository.BoardRepository;
+
+/*
+ * [ Transactional 어노테이션 ]
+ * - 스프링은 @Transactional 어노테이션을 이용한 선언적 트랜잭션 처리를 지원한다.
+ * - 모든 작업들이 성공적으로 완료되어야 작업 묶음의 결과를 적용하고, 
+ * 	어떤 작업에서 오류가 발생했을 때는 이전에 있던 모든 작업들이 성공적이었더라도 없었던 일처럼 완전히 되돌리는 것이 트랜잭션의 개념이다.
+ * - 데이터베이스를 다룰 때 트랜잭션을 적용하면 데이터 추가, 갱신, 
+ * 	삭제 등으로 이루어진 작업을 처리하던 중 오류가 발생했을 때 모든 작업들을 원상태로 되돌릴 수 있다. 
+ * 	모든 작업들이 성공해야만 최종적으로 데이터베이스에 반영하도록 한다.
+ * 
+ * [ 스프링에서 @Transactional 을 이용하여 트랜잭션 처리를 하는 방법 ]
+ * - org.springframework.transaction.annotation.Transactional
+ * - 클래스, 메서드 모두에 @Transactional 어노테이션을 붙이면 메서드 레벨의 @Transactional 선언이 우선 적용된다.
+ * - @Transactional이 붙은 메서드는 메서드가 포함하고 있는 작업 중에 하나라도 실패할 경우 전체 작업을 취소한다.
+ * 
+ * [ @Transactional readOnly 속성 ]
+ * - readONly = true로 설정되어 있으면, 의도지 않게 데이터를 변경하는 것을 막아줍니다.
+ * - 변경 시도 시, 
+ *   + Connection is read-only. Queries leading to data modification are not allowed, 메세지 출력
+ *   + Participating transaction failed - marking existing transaction as rollback-only, 롤백 수행
+ *   + could not execute statement, GenericJDBCException 발생
+ *   + 실제 데이터베이스를 확인해보면 insert 된 데이터가 존재하지 않습니다.
+ *   
+ * [ JpaRepository 표준 방법 ]
+ *  - findAll() 
+ * 	전체 엔터티를 정리한 List 를 돌려준다.
+
+ * - getOne("ID")
+	ID 를 지정하여 엔터티를 하나를 얻어온다. 인수에는 그 엔터티의 ID 에 지정된 형식의 값이 들어간다.
+
+ * - save(엔티티)
+
+ * - saveAndFlush(엔티티)
+	인수에 지정된 엔티티를 데이터베이스에 저장한다.
+
+ * - delete("ID")
+
+ * - deleteById("ID")
+	인수에 지정된 ID 의 엔티티를 데이터베이스에서 삭제한다.
+
+ * - count()
+	엔티티의 수를 int 값으로 반환한다.
+ */
+
+@Service
+public class BoardServiceImpl implements BoardService {
+
+	// 자동주입
+	@Autowired
+	private BoardRepository repository;
+
+	@Override
+	@Transactional
+	public void register(Board board) throws Exception {
+		repository.save(board);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Board read(Long boardNo) throws Exception {
+		return repository.getOne(boardNo);
+	}
+
+	@Override
+	@Transactional
+	public void modify(Board board) throws Exception {
+		Board boardEntity = repository.getOne(board.getBoardNo());
+		boardEntity.setTitle(board.getTitle());
+		boardEntity.setContent(board.getContent());
+	}
+
+	@Override
+	@Transactional
+	public void remove(Long boardNo) throws Exception {
+		repository.deleteById(boardNo);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Board> list() throws Exception {
+		return repository.findAll(Sort.by(Direction.DESC, "boardNo"));
+	}
+
+}

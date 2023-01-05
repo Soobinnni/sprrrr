@@ -1,0 +1,84 @@
+package com.zeus.controller;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.context.support.ResourceBundleMessageSource;
+
+import lombok.extern.java.Log;
+
+@Log
+@Controller
+public class HomeController {
+	/*
+	 * @GetMapping("/") public String home(Locale locale, Model model) {
+	 * log.info("환영합니다. 클라이언트 지역은 " + locale + "입니다.");
+	 * 
+	 * Date date = new Date(); DateFormat dateFormat =
+	 * DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+	 * 
+	 * String formattedDate = dateFormat.format(date);
+	 * 
+	 * model.addAttribute("serverTime", formattedDate);
+	 * 
+	 * return "home"; }
+	 */
+
+	/*
+	 * .properties는 응용 프로그램의 구성 가능한 파라미터들을 저장하기 위해 자바 관련 기술들을 주로 사용하는 파일들을 위한 파일
+	 * 확장자다.
+	 * 
+	 * [ 형식 ] - key = vlaue - ex : Hello = 안녕
+	 */
+
+	/*
+	 * 1) jsp에서 .properties 확장자 활용하기 :  message들을 View에서 클라이언트에 보여준다. <Spring:message code="변수명">을 사용.
+	 * - <spring:message> 태그. 
+	 * 		└ code 속성 : .properties 파일 내 key값으로 value를 불러온다.
+	 * 		└ arguments : .properties 파일 내 정의된 {0}, {1}, ... {n} 의 인자를 전달한다.
+	 * 속성 - 예시 Hello.properties의 내용
+	 * hello = {0}님 안녕하세요 ⓐ<spring:message code="hello" /> ⓑ<spring:message code="hello" arguments="kim" /> 
+	 * - 결과 : ⓐ{0}님 안녕하세요  /  ⓑkim님 안녕하세요
+	 */
+	@GetMapping("/welcomeJsp")
+	public String home2(Locale locale, Model model) {
+		log.info("환영합니다. 클라이언트 지역은 " + locale + "이다.");
+
+		Date date = new Date();
+
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		String formattedDate = dateFormat.format(date);
+		model.addAttribute("serverTime", formattedDate);
+		return "home2"; // 뷰 파일명
+	}
+
+	/*
+	 * 컨트롤러에서 메시지 소스 사용 : 컨트롤러에서 메시지를 사용할 때는 스프링 프레임워크로부터 MessageSource 를 주입 받은 다음
+	 * getMessage 메서드를 호출한다
+	 * 
+	 * [ getMessage의 파라미터 ] messageSource.getMessage("", Object[], new Locale); 1)
+	 * "" : 문자열에 해당하는 이름의 value를 가져온다. 2) 1)의 key값을 통해 해당 {0}, {1}, ... {n}을
+	 * Object[]로 변수 값을 변경할 수 있다. 3) 다국어 처리를 위해 세 번째 인수를 전달한다.
+	 * 
+	 * ex ) String[] args = {"kim", "soobin} hello = {0} {1}님 안녕하세요 String message =
+	 * messageSource.("hello", args, Locale.KOREAN); System.out.print(message);
+	 * 
+	 * 콘솔 결과 : kim soobin님 안녕하세요.
+	 */
+	@GetMapping("/welcomeController")
+	public String welcome() {
+		// 미리 정의된 메시지에 값을 넘겨준다.
+		String[] args = { "이순신" };
+
+		// 스프링 프레임워크로부터 MessageSource를 주입 받은 다음 getMessage 메서드를 호출한다.
+		String message = messageSource.getMessage("welcome.message", args, Locale.KOREAN);
+		log.info("Welcome message : " + message);
+		return "home"; // 뷰 파일명
+	}
+
+}

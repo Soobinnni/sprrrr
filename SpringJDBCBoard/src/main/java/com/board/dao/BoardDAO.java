@@ -14,6 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /*
+ * [ JdbcTemplate ]
+ * - SQL 로만 데이터베이스를 처리할 수 있도록 도와주는 Jdbc Template 클래스
+ * - (1) Jdbc Template 클래스가 제공하는 주요 메서드
+ * - ① queryForObject : 하나의 결과 레코드 중에서 하나의 컬럼 값을 가져온다
+ * - ② queryForMap : 하나의 결과 레코드 정보를 Map 형태로 매핑할 수 있다.
+ * - ③ queryForList : 여러 개의 결과 레코드를 처리할 수 있다.
+ * - ④ query : ResultSetExtractor.RowCallbackHandler 와 함께 조회할 때 사용한다.
+ * - ⑤ update : 데이터를 변경하는 SQL 을 실행할 때 사용한다.
+
+ * 
  * - JdbcTemplate의 update()메서드 
  *   (query, query의 ?변수의 값 나열1, 2, ..., n)
  *   
