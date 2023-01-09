@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="namespace"/>
+		<item key="selection" value="HttpHeaders"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="namespace"/>
-			<item value="parame"/>
-			<item value="para"/>
-			<item value="parametert"/>
-			<item value="parameterty"/>
-			<item value="kk"/>
-			<item value="spirng-boot-starter"/>
-			<item value="tag"/>
-			<item value="jst"/>
-			<item value="sort"/>
-			<item value="remove"/>
-			<item value="oracle"/>
-			<item value="address"/>
-			<item value="getC"/>
-			<item value="zeus"/>
+			<item value="httpheaders"/>
+			<item value="useritem.down"/>
+			<item value="item.member"/>
+			<item value="listpay"/>
+			<item value="useritem.list"/>
+			<item value="ajax"/>
+			<item value="ajx"/>
+			<item value="displayFile"/>
+			<item value="display"/>
+			<item value="&quot;menu.notice.member"/>
+			<item value="media"/>
+			<item value="upl"/>
+			<item value="메뉴명"/>
+			<item value="notice"/>
+			<item value="action"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="615"/>
-		<item key="DIALOG_Y_ORIGIN" value="387"/>
+		<item key="DIALOG_X_ORIGIN" value="1118"/>
+		<item key="DIALOG_Y_ORIGIN" value="331"/>
 		<item key="DIALOG_WIDTH" value="369"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
